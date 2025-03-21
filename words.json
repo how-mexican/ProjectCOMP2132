@@ -1,0 +1,8 @@
+[
+    { "word": "javascript", "hint": "A popular programming language." },
+    { "word": "browser", "hint": "Software to access the internet." },
+    { "word": "hangman", "hint": "This very game!" },
+    { "word": "developer", "hint": "A person who writes code." },
+    { "word": "function", "hint": "A reusable block of code." },
+    { "word": "variable", "hint": "A placeholder for data in programming." }
+]
