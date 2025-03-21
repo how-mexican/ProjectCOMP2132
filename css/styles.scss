@@ -1,0 +1,73 @@
+$primary-color: #2c3e50;
+$secondary-color: #e74c3c;
+$bg-color: #ecf0f1;
+$font-stack: 'Arial', sans-serif;
+
+@mixin flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+body {
+    font-family: $font-stack;
+    background-color: $bg-color;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+.game-container {
+    @include flex-center;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+h1 {
+    color: $primary-color;
+}
+
+#hangman-container {
+    margin: 20px;
+}
+
+#letters-container {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    gap: 5px;
+    margin-top: 20px;
+}
+
+.letter-btn {
+    padding: 10px;
+    border: none;
+    background: $primary-color;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: 0.3s;
+    
+    &:hover {
+        background: $secondary-color;
+    }
+    
+    &:disabled {
+        background: gray;
+        cursor: not-allowed;
+    }
+}
+
+#reset-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background: $secondary-color;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+    
+    &:hover {
+        background: darken($secondary-color, 10%);
+    }
+}
