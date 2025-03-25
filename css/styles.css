@@ -22,6 +22,24 @@ h1 {
   margin: 20px;
 }
 
+#hangman-image {
+  width: 80%;
+  max-width: 300px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+@media (max-width: 768px) {
+  #hangman-image {
+    width: 60%;
+  }
+}
+@media (max-width: 480px) {
+  #hangman-image {
+    width: 40%;
+  }
+}
+
 #letters-container {
   display: grid;
   grid-template-columns: repeat(9, 1fr);

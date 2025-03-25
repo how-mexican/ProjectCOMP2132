@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let guessedLetters = [];
     let incorrectGuesses = 0;
     const maxGuesses = 6;
+    let gameOver = false;
     
     const wordDisplay = document.getElementById("word-display");
     const hintDisplay = document.getElementById("hint");
@@ -24,6 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     
     async function initializeGame() {
+        gameOver = false;
         const words = await fetchWords();
         if (words.length === 0) return;
         
@@ -38,26 +40,32 @@ document.addEventListener("DOMContentLoaded", () => {
     function updateGameState() {
         hintDisplay.textContent = `Hint: ${hint}`;
         wordDisplay.textContent = selectedWord.split('').map(letter => guessedLetters.includes(letter) ? letter : '_').join(' ');
-        hangmanImage.src = `img/${incorrectGuesses}.png`;
+        hangmanImage.src = `images/${incorrectGuesses}.png`;
         messageDisplay.textContent = "";
+        
+        if (gameOver) {
+            lettersContainer.innerHTML = "";
+            return;
+        }
+        
         lettersContainer.innerHTML = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split('').map(letter => 
             `<button class='letter-btn' onclick='guessLetter("${letter}")' ${guessedLetters.includes(letter) ? "disabled" : ""}>${letter}</button>`
         ).join('');
     }
     
     window.guessLetter = function(letter) {
-        if (guessedLetters.includes(letter)) return;
+        if (gameOver || guessedLetters.includes(letter)) return;
         guessedLetters.push(letter);
         if (selectedWord.includes(letter)) {
             if (selectedWord.split('').every(l => guessedLetters.includes(l))) {
                 messageDisplay.textContent = "You Win!";
-                lettersContainer.innerHTML = "";
+                gameOver = true;
             }
         } else {
             incorrectGuesses++;
             if (incorrectGuesses >= maxGuesses) {
                 messageDisplay.textContent = "Game Over! The word was " + selectedWord;
-                lettersContainer.innerHTML = "";
+                gameOver = true;
             }
         }
         updateGameState();
